@@ -6,7 +6,7 @@ function Home() {
     <div>
 
       <main className="bg-white text-black max-w-4xl mx-auto">
-        <h2>記事一覧</h2>
+        <h2 className="text-2xl">記事一覧</h2>
           {posts.map((post)=>(
             <div key={post.id} className='flex gap-4 border-b py-5'>
               <img
@@ -25,7 +25,7 @@ function Home() {
                   </p>
                 <p>{post.categories.join(" / ")}</p>
                 </div>
-              <h3>{post.title}</h3>
+              <h3 className="font-medium">{post.title}</h3>
               <p>{post.content}</p>
               </div>
            </div>
