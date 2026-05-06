@@ -8,6 +8,9 @@ function Page (){
     const post = posts.find(
       (item) => item.id === Number(id)
     );
+    if (!post) {
+    return <p>記事が見つかりません</p>;
+    }
     return(
       <div>
         <img src={post.thumbnailUrl} alt={post.title} width="500"/>
