@@ -1,16 +1,26 @@
 import { useParams } from "react-router-dom";
-import {posts} from "../../data/posts";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 
 function Page (){
     const {id} = useParams();
-    const post = posts.find(
-      (item) => item.id === Number(id)
-    );
+    const [post, setPost] = useState(null);
+    //post = null（空っぽ） 最初はデータがまだ来てないから
+    //「後でデータ入れるよ」という宣言
+
+    useEffect(() => {
+    fetch(`https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setPost(data.post);
+      });
+  }, [id]);
+
     if (!post) {
     return <p>記事が見つかりません</p>;
     }
+
     return(
       <div>
         <img src={post.thumbnailUrl} alt={post.title} width="500"/>

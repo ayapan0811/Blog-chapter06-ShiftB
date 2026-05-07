@@ -1,11 +1,20 @@
 import React from "react";
-import { posts } from "../../data/posts";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 function Home() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+  fetch("https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts")
+    .then((res) => res.json())
+    .then((data) => {
+      setPosts(data.posts);
+    });
+}, []);
+
   return (
     <div>
-
       <main className="bg-white text-black max-w-4xl mx-auto">
         <h2 className="text-2xl">記事一覧</h2>
           {posts.map((post)=>(
