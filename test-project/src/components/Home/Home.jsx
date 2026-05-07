@@ -1,5 +1,6 @@
 import React from "react";
-import {posts} from '/src/data/posts'
+import { posts } from "../../data/posts";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -8,7 +9,7 @@ function Home() {
       <main className="bg-white text-black max-w-4xl mx-auto">
         <h2 className="text-2xl">記事一覧</h2>
           {posts.map((post)=>(
-            <div key={post.id} className='flex gap-4 border-b py-5'>
+            <Link key={post.id} to={`/posts/${post.id}`} className='flex gap-4 border-b py-5'>
               <img
                 src={post.thumbnailUrl}
                 alt={post.title}
@@ -28,7 +29,7 @@ function Home() {
               <h3 className="font-medium">{post.title}</h3>
               <p>{post.content}</p>
               </div>
-           </div>
+           </Link>
           ))}
       </main>
 
