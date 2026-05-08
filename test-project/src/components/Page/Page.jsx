@@ -38,7 +38,7 @@ function Page (){
         </div>
         <h2>{post.title}</h2>
         <p>{post.content}</p>
-        <Link to="/"className="inline-block bg-black text-white px-4 py-2">
+        <Link to="/" className="inline-block bg-black text-white px-4 py-2">
           記事一覧に戻る
         </Link>
       </div>

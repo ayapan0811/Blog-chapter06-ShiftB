@@ -4,18 +4,21 @@ import { useState, useEffect } from "react";
 
 function Home() {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPosts = async () => {
       const res = await fetch("https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts");
       const data = await res.json();
       setPosts(data.posts);
+      setLoading(false);
+      //「ロード終わったよ」の合図
     };
 
     fetchPosts();
   }, []);
 
-  if (posts.length === 0) {
+  if (loading) {
     return <p>読み込み中...</p>;
   }
 
