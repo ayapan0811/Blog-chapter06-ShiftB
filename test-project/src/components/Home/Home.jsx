@@ -1,11 +1,32 @@
 import React from "react";
-import { posts } from "../../data/posts";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 function Home() {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const res = await fetch("https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts");
+      const data = await res.json();
+      setPosts(data.posts);
+      setLoading(false);
+      //「ロード終わったよ」の合図
+    };
+
+    fetchPosts();
+  }, []);
+
+  if (loading) {
+    return <p>読み込み中</p>;
+  }
+  if (posts.length === 0) {
+    return <p>記事がありません</p>;
+  }
+
   return (
     <div>
-
       <main className="bg-white text-black max-w-4xl mx-auto">
         <h2 className="text-2xl">記事一覧</h2>
           {posts.map((post)=>(

@@ -1,16 +1,28 @@
 import { useParams } from "react-router-dom";
-import {posts} from "../../data/posts";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 
 function Page (){
     const {id} = useParams();
-    const post = posts.find(
-      (item) => item.id === Number(id)
-    );
+    const [post, setPost] = useState(null);
+    //post = null（空っぽ） 最初はデータがまだ来てないから
+    //「後でデータ入れるよ」という宣言
+
+    useEffect(() => {
+      const fetchPost = async () => {
+        const res = await fetch(`https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts/${id}`);
+        const data = await res.json();
+        setPost(data.post);
+      };
+
+      fetchPost();
+    }, [id]);
+
     if (!post) {
-    return <p>記事が見つかりません</p>;
+      return <p>記事が見つかりません</p>;
     }
+
     return(
       <div>
         <img src={post.thumbnailUrl} alt={post.title} width="500"/>
@@ -26,7 +38,7 @@ function Page (){
         </div>
         <h2>{post.title}</h2>
         <p>{post.content}</p>
-        <Link to="/"className="inline-block bg-black text-white px-4 py-2">
+        <Link to="/" className="inline-block bg-black text-white px-4 py-2">
           記事一覧に戻る
         </Link>
       </div>
