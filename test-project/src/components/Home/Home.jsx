@@ -19,7 +19,10 @@ function Home() {
   }, []);
 
   if (loading) {
-    return <p>読み込み中...</p>;
+    return <p>読み込み中</p>;
+  }
+  if (posts.length === 0) {
+    return <p>記事がありません</p>;
   }
 
   return (
