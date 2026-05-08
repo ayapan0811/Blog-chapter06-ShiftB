@@ -10,15 +10,17 @@ function Page (){
     //「後でデータ入れるよ」という宣言
 
     useEffect(() => {
-    fetch(`https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
+      const fetchPost = async () => {
+        const res = await fetch(`https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts/${id}`);
+        const data = await res.json();
         setPost(data.post);
-      });
-  }, [id]);
+      };
+
+      fetchPost();
+    }, [id]);
 
     if (!post) {
-    return <p>記事が見つかりません</p>;
+      return <p>記事が見つかりません</p>;
     }
 
     return(

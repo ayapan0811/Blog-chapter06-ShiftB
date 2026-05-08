@@ -6,12 +6,18 @@ function Home() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-  fetch("https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts")
-    .then((res) => res.json())
-    .then((data) => {
+    const fetchPosts = async () => {
+      const res = await fetch("https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts");
+      const data = await res.json();
       setPosts(data.posts);
-    });
-}, []);
+    };
+
+    fetchPosts();
+  }, []);
+
+  if (posts.length === 0) {
+    return <p>読み込み中...</p>;
+  }
 
   return (
     <div>
