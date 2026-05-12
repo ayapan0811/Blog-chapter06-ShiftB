@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-function Contact() {
+const Contact = () => {
 	//名前の入力内容を保存する箱
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -45,7 +45,6 @@ function Contact() {
   //e=イベント情報（ボタン押した情報）
   const handleSubmit = async (e)=>{
 		//ページリロード防止
-
     e.preventDefault();
 
     //validate実行
@@ -78,15 +77,15 @@ function Contact() {
       alert("送信しました");
 
       //入力リセット
-      setName("");
-      setEmail("");
-      setMessage("");
+      handleReset();
 
     } catch(error){
-        alert("送信に失敗しました");
+      alert("送信に失敗しました");
+      //成功でも失敗でも必ず実行finally
+    }finally{
+      //送信終了
+      setIsSubmitting(false);
     }
-    //送信終了
-    setIsSubmitting(false);
   };
   const handleReset = () => {
     setName("");
@@ -153,5 +152,5 @@ function Contact() {
         </form>
     </div>
   );
-}
+};
 export default Contact;

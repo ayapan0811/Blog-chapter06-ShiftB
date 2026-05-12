@@ -4,24 +4,24 @@ import { Link } from "react-router-dom";
 
 
 function Page (){
-    const {id} = useParams();
-    const [post, setPost] = useState(null);
+  const {id} = useParams();
+  const [post, setPost] = useState(null);
     //post = null（空っぽ） 最初はデータがまだ来てないから
     //「後でデータ入れるよ」という宣言
 
-    useEffect(() => {
-      const fetchPost = async () => {
-        const res = await fetch(`https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts/${id}`);
-        const data = await res.json();
-        setPost(data.post);
-      };
+  useEffect(() => {
+    const fetchPost = async () => {
+      const res = await fetch(`https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts/${id}`);
+      const data = await res.json();
+      setPost(data.post);
+    };
 
-      fetchPost();
-    }, [id]);
+    fetchPost();
+  }, [id]);
 
-    if (!post) {
-      return <p>記事が見つかりません</p>;
-    }
+  if (!post) {
+    return <p>記事が見つかりません</p>;
+  }
 
     return(
       <div>
